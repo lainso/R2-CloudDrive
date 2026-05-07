@@ -668,7 +668,7 @@ export default {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 50vw;
+  width: 47vw;
 }
 
 @media (max-width: 768px) {
