@@ -18,7 +18,7 @@
       </a>
 
       <input type="search" v-model="search" aria-label="Search" placeholder="🔍" />
-<div style="display: flex; align-items: center;">
+      <div style="display: flex; align-items: center;">
         <!-- 1. 排序按钮 -->
         <div class="menu-button" style="margin-left: 0;">
           <button class="circle" @click="showMenu = true"
@@ -38,8 +38,7 @@
                 p-id="22028" fill="#2c2c2c"></path>
             </svg>
           </button>
-          <Menu v-model="showMenu"
-            :items="[{ text: '按照名称排序A-Z' }, { text: '按照大小递增排序' }, { text: '按照大小递减排序' }]"
+          <Menu v-model="showMenu" :items="[{ text: '按照名称排序A-Z' }, { text: '按照大小递增排序' }, { text: '按照大小递减排序' }]"
             @click="onMenuClick" />
         </div>
         <div class="menu-button" style="padding-left: 5px;">
@@ -53,8 +52,11 @@
       'Segoe UI', 'Liberation Sans', sans-serif;" class="menu-button-text">
               粘贴
             </p>
-            <svg class="icon" viewBox="0 0 1024 1024" width="22" height="22" version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <path d="M768 170.666667H640c-18.389333-65.792-78.506667-113.777778-151.466667-113.777778-72.96 0-133.077333 47.985778-151.466666 113.777778H213.333333C174.08 170.666667 142.222222 202.524444 142.222222 241.777778v597.333333C142.222222 878.364444 174.08 910.222222 213.333333 910.222222h554.666667c39.253333 0 71.111111-31.857778 71.111111-71.111111V241.777778c0-39.253333-31.857778-71.111111-71.111111-71.111111zM488.533333 113.777778c35.271111 0 65.422222 21.048889 77.937778 51.2H410.595556c12.515556-30.151111 42.666667-51.2 77.937777-51.2z m279.466667 740.124444H213.333333V227.555556h101.404445l11.093333 34.133333c10.524444 32.711111 41.528889 54.613333 76.515556 54.613333h172.373333c34.986667 0 65.991111-21.902222 76.515556-54.613333l11.093333-34.133333h101.404444v626.346666z" fill="#2c2c2c"></path>
+            <svg class="icon" viewBox="0 0 1024 1024" width="22" height="22" version="1.1"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M768 170.666667H640c-18.389333-65.792-78.506667-113.777778-151.466667-113.777778-72.96 0-133.077333 47.985778-151.466666 113.777778H213.333333C174.08 170.666667 142.222222 202.524444 142.222222 241.777778v597.333333C142.222222 878.364444 174.08 910.222222 213.333333 910.222222h554.666667c39.253333 0 71.111111-31.857778 71.111111-71.111111V241.777778c0-39.253333-31.857778-71.111111-71.111111-71.111111zM488.533333 113.777778c35.271111 0 65.422222 21.048889 77.937778 51.2H410.595556c12.515556-30.151111 42.666667-51.2 77.937777-51.2z m279.466667 740.124444H213.333333V227.555556h101.404445l11.093333 34.133333c10.524444 32.711111 41.528889 54.613333 76.515556 54.613333h172.373333c34.986667 0 65.991111-21.902222 76.515556-54.613333l11.093333-34.133333h101.404444v626.346666z"
+                fill="#2c2c2c"></path>
             </svg>
           </button>
         </div>
@@ -362,8 +364,11 @@ export default {
     },
 
     async pasteFile() {
-      if (!this.clipboard) return;
-      let newName = window.prompt("Rename to:");
+      if (!this.clipboard) {
+        window.alert("请先选择要复制的文件！");
+        return;
+      }
+      let newName = window.prompt("新文件重命名为:");
       if (newName === null) return;
       if (newName === "") newName = this.clipboard.split("/").pop();
       await this.copyPaste(this.clipboard, `${this.cwd}${newName}`);
@@ -658,7 +663,7 @@ export default {
   position: sticky;
   top: 0;
   padding: 10px 20px;
-  background-color: rgb(142,142,144);
+  background-color: rgb(142, 142, 144);
   display: flex;
   align-items: center;
   justify-content: space-between;
