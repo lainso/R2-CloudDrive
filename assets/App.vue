@@ -18,30 +18,46 @@
       </a>
 
       <input type="search" v-model="search" aria-label="Search" placeholder="🔍" />
-      <div class="menu-button">
-        <button class="circle" @click="showMenu = true"
-          style="display: flex; align-items: center;background-color: rgb(119, 119, 119);">
-          <p style="
-              white-space: nowrap;
-              margin: 0 10px 0 0;
-              font-size: 16px;
-              font-family: '寒蝉半圆体', -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
-    'Segoe UI', 'Liberation Sans', sans-serif;" class="menu-button-text">
-            粘贴 / 排序
-          </p>
-          <svg t="1741761597964" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="22027" width="24" height="24">
-            <path
-              d="M365 663.5v210.7c0 18.6-23.4 26.8-35 12.3L131.2 637.9c-13.3-16.6-1.5-41.1 19.8-41.1h80.7v-400c0-36.8 29.8-66.7 66.7-66.7 36.8 0 66.7 29.8 66.7 66.7v466.7h-0.1z m200-466.7h266.7c36.8 0 66.7 29.8 66.7 66.7s-29.8 66.7-66.7 66.7H565c-36.8 0-66.7-29.8-66.7-66.7 0-36.8 29.9-66.7 66.7-66.7z m0 266.7h200c36.8 0 66.7 29.8 66.7 66.6s-29.8 66.7-66.6 66.7H565c-36.8 0-66.7-29.8-66.7-66.7 0.1-36.8 29.9-66.6 66.7-66.6z m0 266.7h133.3c36.8 0 66.7 29.8 66.7 66.7 0 36.8-29.8 66.7-66.7 66.7H565c-36.8 0-66.7-29.8-66.7-66.7 0.1-36.9 29.9-66.7 66.7-66.7z"
-              p-id="22028" fill="#2c2c2c"></path>
-          </svg>
-        </button>
-        <Menu v-model="showMenu"
-          :items="[{ text: '按照名称排序A-Z' }, { text: '按照大小递增排序' }, { text: '按照大小递减排序' }, { text: '粘贴文件到网盘' }]"
-          @click="onMenuClick" />
-        <!-- <Menu v-model="showMenu"
-          :items="[{ text: '按照名称排序A-Z' }, { text: '按照大小递增排序' }, { text: '按照大小递减排序' }]"
-          @click="onMenuClick" /> -->
+<div style="display: flex; align-items: center;">
+        <!-- 1. 排序按钮 -->
+        <div class="menu-button" style="margin-left: 0;">
+          <button class="circle" @click="showMenu = true"
+            style="display: flex; align-items: center;background-color: rgb(119, 119, 119);">
+            <p style="
+                white-space: nowrap;
+                margin: 0 10px 0 0;
+                font-size: 16px;
+                font-family: '寒蝉半圆体', -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
+      'Segoe UI', 'Liberation Sans', sans-serif;" class="menu-button-text">
+              排序
+            </p>
+            <svg t="1741761597964" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              p-id="22027" width="24" height="24">
+              <path
+                d="M365 663.5v210.7c0 18.6-23.4 26.8-35 12.3L131.2 637.9c-13.3-16.6-1.5-41.1 19.8-41.1h80.7v-400c0-36.8 29.8-66.7 66.7-66.7 36.8 0 66.7 29.8 66.7 66.7v466.7h-0.1z m200-466.7h266.7c36.8 0 66.7 29.8 66.7 66.7s-29.8 66.7-66.7 66.7H565c-36.8 0-66.7-29.8-66.7-66.7 0-36.8 29.9-66.7 66.7-66.7z m0 266.7h200c36.8 0 66.7 29.8 66.7 66.6s-29.8 66.7-66.6 66.7H565c-36.8 0-66.7-29.8-66.7-66.7 0.1-36.8 29.9-66.6 66.7-66.6z m0 266.7h133.3c36.8 0 66.7 29.8 66.7 66.7 0 36.8-29.8 66.7-66.7 66.7H565c-36.8 0-66.7-29.8-66.7-66.7 0.1-36.9 29.9-66.7 66.7-66.7z"
+                p-id="22028" fill="#2c2c2c"></path>
+            </svg>
+          </button>
+          <Menu v-model="showMenu"
+            :items="[{ text: '按照名称排序A-Z' }, { text: '按照大小递增排序' }, { text: '按照大小递减排序' }]"
+            @click="onMenuClick" />
+        </div>
+        <div class="menu-button" style="padding-left: 5px;">
+          <button class="circle" @click="pasteFile"
+            style="display: flex; align-items: center;background-color: rgb(119, 119, 119);">
+            <p style="
+                white-space: nowrap;
+                margin: 0 10px 0 0;
+                font-size: 16px;
+                font-family: '寒蝉半圆体', -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
+      'Segoe UI', 'Liberation Sans', sans-serif;" class="menu-button-text">
+              粘贴
+            </p>
+            <svg class="icon" viewBox="0 0 1024 1024" width="22" height="22" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <path d="M768 170.666667H640c-18.389333-65.792-78.506667-113.777778-151.466667-113.777778-72.96 0-133.077333 47.985778-151.466666 113.777778H213.333333C174.08 170.666667 142.222222 202.524444 142.222222 241.777778v597.333333C142.222222 878.364444 174.08 910.222222 213.333333 910.222222h554.666667c39.253333 0 71.111111-31.857778 71.111111-71.111111V241.777778c0-39.253333-31.857778-71.111111-71.111111-71.111111zM488.533333 113.777778c35.271111 0 65.422222 21.048889 77.937778 51.2H410.595556c12.515556-30.151111 42.666667-51.2 77.937777-51.2z m279.466667 740.124444H213.333333V227.555556h101.404445l11.093333 34.133333c10.524444 32.711111 41.528889 54.613333 76.515556 54.613333h172.373333c34.986667 0 65.991111-21.902222 76.515556-54.613333l11.093333-34.133333h101.404444v626.346666z" fill="#2c2c2c"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
     <div class="file-list-container">
@@ -322,8 +338,6 @@ export default {
         case "按照大小递减排序":
           this.order = "大小↓";
           break;
-        case "粘贴文件到网盘":
-        return this.pasteFile();
       }
       this.files.sort((a, b) => {
         if (this.order === "大小↑") {
